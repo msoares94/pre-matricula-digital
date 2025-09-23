@@ -1,7 +1,18 @@
-# Pré-Matrícula Digital
+# Pré-Matrícula Digital (PMD)
 
-O Pré-Matrícula Digital (PMD), módulo de gestão de vagas e listas de espera integrado ao i-Educar, agora também é de 
-código aberto. Cumpra a Lei 14.851/2024, com gestão eficiente e transparente para sua rede.
+O **[Pré-Matrícula Digital (PMD)](https://ieducar.com.br/pre-matricula-digital/)** é um módulo de **gestão de vagas e listas de espera na Educação Infantil**, integrado ao [i-Educar](https://github.com/portabilis/i-educar), agora disponível também como **código aberto**.  
+
+Ele apoia municípios no cumprimento das Leis **14.685/2023** e **14.851/2024**, garantindo que a gestão de vagas e filas seja feita de forma **organizada, transparente e auditável**.  
+
+📺 O código aberto foi lançado em julho/2025 em evento público com participação do **MEC**, da **Fundação Lemann** e de representantes de **Canoas/RS** e **Gaspar/SC**. Assista no [YouTube](https://www.youtube.com/watch?v=pY7HYZ-6bHY).  
+
+**Destaques principais:**  
+- Gestão centralizada e organizada das listas de espera  
+- Publicação automática de critérios e resultados  
+- Histórico de alterações para segurança e auditoria  
+- Integração com o portal [Minha Vaga na Creche](https://minhavaganacreche.org.br) para transparência pública  
+
+Com o PMD, redes municipais modernizam seus processos de matrícula, aumentam a confiança das famílias e reduzem riscos de judicialização como consequência da transparência.  
 
 ## Instalação
 
