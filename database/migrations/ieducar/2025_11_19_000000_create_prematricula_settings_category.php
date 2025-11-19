@@ -31,9 +31,24 @@ return new class extends Migration
             WHERE key LIKE 'prematricula.%';
         ", [$categoryId]);
 
+        // 3. DELETAR CONFIGURAÇÕES QUE SÃO CONTROLADAS POR .ENV
+        // Estas não devem estar no banco pois são configurações de infraestrutura/segurança
+        DB::statement("
+            DELETE FROM settings
+            WHERE key IN (
+                'prematricula.active',
+                'prematricula.token',
+                'prematricula.minha_vaga_na_creche_url',
+                'prematricula.minha_vaga_na_creche_token',
+                'prematricula.user'
+            );
+        ");
+
+        // 4. INSERIR CONFIGURAÇÕES EDITÁVEIS PELA INTERFACE
         $settings = [
             // CONFIGURAÇÕES BÁSICAS
-            ['prematricula.active', 'true', 'boolean', 'Ativar/Desativar o Pré-Matrícula Digital'],
+            ['prematricula.city', 'Içara', 'string', 'Nome do município'],
+            ['prematricula.state', 'SC', 'string', 'Sigla do estado (UF)'],
             ['prematricula.ibge_codes', '', 'string', 'Códigos IBGE separados por vírgula'],
 
             // IDENTIDADE VISUAL
@@ -48,6 +63,7 @@ return new class extends Migration
             // FUNCIONALIDADES
             ['prematricula.allow_optional_address', 'true', 'boolean', 'Permitir endereço opcional'],
             ['prematricula.show_how_to_do_video', 'true', 'boolean', 'Exibir vídeo tutorial'],
+            ['prematricula.video_intro_url', null, 'string', 'URL do vídeo de introdução'],
             ['prematricula.legacy', 'true', 'boolean', 'Usar modo legado (integrado ao i-Educar)'],
             ['prematricula.link_to_restrict_area', null, 'string', 'Link para área restrita'],
 
@@ -57,13 +73,6 @@ return new class extends Migration
             ['prematricula.allow_transfer_registration', 'false', 'boolean', 'Permitir transferência de matrícula'],
             ['prematricula.transfer_description', 'Transferência Pré-matrícula Digital', 'string', 'Descrição da transferência'],
             ['prematricula.allow_vacancy_certificate', 'false', 'boolean', 'Permitir certificado de vaga'],
-
-            // INTEGRAÇÃO MINHA VAGA NA CRECHE
-            ['prematricula.minha_vaga_na_creche_url', null, 'string', 'URL do sistema Minha Vaga na Creche'],
-            ['prematricula.minha_vaga_na_creche_token', null, 'string', 'Token do sistema Minha Vaga na Creche'],
-
-            // OUTROS
-            ['prematricula.user', '1', 'integer', 'ID do usuário padrão para operações'],
         ];
 
         foreach ($settings as $setting) {
