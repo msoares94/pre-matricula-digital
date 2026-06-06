@@ -37,7 +37,6 @@ return new class extends Migration
         ['prematricula.video_intro_url', null, 'string', 'URL do vídeo de introdução'],
         ['prematricula.link_to_restrict_area', null, 'string', 'Link para a área restrita'],
         ['prematricula.legacy', '1', 'boolean', 'Modo integrado ao i-Educar'],
-        ['prematricula.token', '', 'string', 'Token de acesso da API pública (definido por tenant)'],
         ['prematricula.map.lat', '-28.7', 'string', 'Latitude do centro do mapa'],
         ['prematricula.map.lng', '-49.3', 'string', 'Longitude do centro do mapa'],
         ['prematricula.map.zoom', '13', 'integer', 'Nível de zoom do mapa'],
@@ -84,6 +83,18 @@ return new class extends Migration
             $setting->setting_category_id = $category->getKey();
             $setting->save();
         }
+
+        $token = Setting::firstOrNew(['key' => 'prematricula.token']);
+
+        if (!$token->exists) {
+            // Um token vazio casaria com um Bearer vazio e burlaria o guard de auth.
+            $token->value = bin2hex(random_bytes(32));
+            $token->type = 'string';
+            $token->description = 'Token de acesso da API pública (gerado por tenant)';
+        }
+
+        $token->setting_category_id = $category->getKey();
+        $token->save();
 
         Setting::where('key', 'like', 'prematricula.%')
             ->update(['setting_category_id' => $category->getKey()]);
